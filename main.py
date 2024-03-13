@@ -12,7 +12,7 @@ with open(input, newline='') as file:
     file.readline()
 
     for lines in csvFile:
-        nwa.printOutput(lines[1])
+        nwa.printOutput(lines)
 file.close()
 
 #except:
