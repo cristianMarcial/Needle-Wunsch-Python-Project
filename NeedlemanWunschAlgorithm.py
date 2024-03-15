@@ -6,6 +6,10 @@ GAP_SCORE = -2
 def S(a, b):
     return MATCH_SCORE if a == b else MISMATCH_SCORE
 
+def path(a, b, c):
+    #recursive
+    pass
+
 def generateGrid(s1, s2):
     grid = [[0]]
 
@@ -31,6 +35,10 @@ def generateGrid(s1, s2):
     
     return grid
 
+def printGrid(g):
+    for i in g:
+        print(i)
+
 def printOutput(inputText):
     s1 = inputText[0]
     s2 = inputText[1]
@@ -38,6 +46,7 @@ def printOutput(inputText):
     score = grid[-1][-1]
 
     #
-    print(grid)
+    printGrid(grid)
+    print('######')
 
     #print(s2)
