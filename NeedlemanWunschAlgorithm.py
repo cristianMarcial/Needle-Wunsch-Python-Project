@@ -1,6 +1,6 @@
 #Scoring matrix values [[0, -2, -4, -6, -8, -10], [-2, 1, -1, -3, -5, -7], [-4, -1, 0, 0, -2, -4], [-6, -3, -2, -1, 1, -1], [-8, -5, -2, -3, -1, 2]]
 
-#Scoring matrix
+# Values for scoring in the grid
 MATCH_SCORE = 1
 MISMATCH_SCORE = -1
 GAP_SCORE = -2
@@ -14,7 +14,7 @@ def S(a, b):
 def generateGrid():
     grid = [[0]]
 
-    #Initialization step
+    # Initialization step
     index = 1
     for i in sequence1:
         grid[0].append(GAP_SCORE*index)
@@ -25,7 +25,7 @@ def generateGrid():
         grid.append([GAP_SCORE*index])
         index+=1
 
-    #Filling the grid
+    # Filling the grid
     y = 0
     for j in sequence2:
         x = 0
@@ -87,7 +87,7 @@ def printOutput(inputText):
     sequence1 = inputText[0]
     sequence2 = inputText[1]
     grid = generateGrid()
-    backtracking(len(sequence1),len(sequence2))
+    backtracking(len(sequence1), len(sequence2))
 
     # printGrid(grid)
     # print('######')
