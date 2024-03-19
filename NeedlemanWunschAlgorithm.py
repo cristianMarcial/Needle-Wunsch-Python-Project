@@ -37,61 +37,61 @@ def generateGrid():
     return grid
 
 #Clone 1
-def backtrackHelper(x, y):
+def backtrackingHelper(x, y):
     global output1, output2
-    if x > 0 and y > 0:
+    if x >= 0 and y >= 0:
         diag = grid[y-1][x-1] + S(sequence1[x], sequence2[y]) #revision -1
         left = grid[y][x-1] + GAP_SCORE
         up = grid[y-1][x] + GAP_SCORE
 
-        if diag > left and diag > up:
+        if diag >= left and diag >= up:
             output1 = sequence1[x] + output1
             output2 = sequence2[y] + output2
-            backtrackHelper(x-1, y-1)
+            backtrackingHelper(x-1, y-1)
         else:
             if diag < left:
                 output1 = sequence1[x] + output1
                 output2 = '-' + output2
-                backtrackHelper(x-1, y)
+                backtrackingHelper(x-1, y)
             elif diag == left:
-                if grid[y][x-1] >= grid[y][x]:
+                if grid[y][x-1] > grid[y-1][x-1]: # IMP O >=
                     output1 = sequence1[x] + output1
                     output2 = '-' + output2
-                    backtrackHelper(x-1, y)
+                    backtrackingHelper(x-1, y)
                 else:
                     output1 = sequence1[x] + output1
                     output2 = sequence2[y] + output2
-                    backtrackHelper(x-1, y-1)
+                    backtrackingHelper(x-1, y-1)
             elif diag < up:
                 output1 = '-' + output1
                 output2 = sequence2[y] + output2
-                backtrackHelper(x, y-1)
+                backtrackingHelper(x, y-1)
             elif diag == up:
-                if grid[y-1][x] >= grid[y][x]:
+                if grid[y-1][x] > grid[y-1][x-1]:
                     output1 = '-' + output1
                     output2 = sequence2[y] + output2
-                    backtrackHelper(x, y-1)
+                    backtrackingHelper(x, y-1)
                 else:
                     output1 = sequence1[x] + output1
                     output2 = sequence2[y] + output2
-                    backtrackHelper(x-1, y-1)
+                    backtrackingHelper(x-1, y-1)
 
-def backtrack(s1, s2):
-    backtrackHelper(s1-1, s2-1)
-    pass
+def backtracking(s1, s2):
+    backtrackingHelper(s1-1, s2-1)
 
-def printGrid(g):
-    for i in g:
-        print(i)
+def printGrid(g): 
+    for i in g: print(i)
 
 def printOutput(inputText):
-    global sequence1, sequence2, grid
+    global sequence1, sequence2, grid, output1, output2
     sequence1 = inputText[0]
     sequence2 = inputText[1]
     grid = generateGrid()
+    backtracking(len(sequence1),len(sequence2))
 
-    backtrack(len(sequence1),len(sequence2))
+    # printGrid(grid)
+    # print('######')
+    print(output1, output2, grid[-1][-1], '\n')
 
-    printGrid(grid)
-    print('######')
-    print(output1, output2, grid[-1][-1])
+    # They must delete their content in order to not acumulate
+    output1 = output2 = ''
