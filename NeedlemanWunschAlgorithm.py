@@ -37,20 +37,20 @@ def backtrackingHelper(x, y):
     global output1, output2
     if x >= 0 and y >= 0:
         diag = grid[y][x] + S(sequence1[x], sequence2[y])
-        up = grid[y+1][x] + GAP_SCORE
-        left = grid[y][x+1] + GAP_SCORE
+        left = grid[y+1][x] + GAP_SCORE
+        up = grid[y][x+1] + GAP_SCORE #NO x-1; esta bien asi
 
-        if diag > up and diag > left:
+        if diag > left and diag > up:
             output1 = sequence1[x] + output1
             output2 = sequence2[y] + output2
             backtrackingHelper(x-1, y-1)
         else:
-            if diag < up:
+            if diag < left:
                 output1 = sequence1[x] + output1
                 output2 = '-' + output2
                 backtrackingHelper(x-1, y)
-            elif diag == up:
-                if grid[y][x-1] > grid[y-1][x-1]:
+            elif diag == left:
+                if grid[y+1][x] > grid[y][x]:
                     output1 = sequence1[x] + output1
                     output2 = '-' + output2
                     backtrackingHelper(x-1, y)
@@ -58,12 +58,12 @@ def backtrackingHelper(x, y):
                     output1 = sequence1[x] + output1
                     output2 = sequence2[y] + output2
                     backtrackingHelper(x-1, y-1)
-            elif diag < left:
+            elif diag < up:
                 output1 = '-' + output1
                 output2 = sequence2[y] + output2
                 backtrackingHelper(x, y-1)
-            elif diag == left:
-                if grid[y-1][x] > grid[y-1][x-1]:
+            elif diag == up:
+                if grid[y][x+1] > grid[y][x]:
                     output1 = '-' + output1
                     output2 = sequence2[y] + output2
                     backtrackingHelper(x, y-1)
@@ -71,6 +71,14 @@ def backtrackingHelper(x, y):
                     output1 = sequence1[x] + output1
                     output2 = sequence2[y] + output2
                     backtrackingHelper(x-1, y-1)
+    elif x < 0 and y >= 0:
+        output1 = '-' + output1
+        output2 = sequence2[y] + output2
+        backtrackingHelper(x, y-1)
+    elif x >= 0 and y < 0:
+        output1 = sequence1[x] + output1
+        output2 = '-' + output2
+        backtrackingHelper(x-1, y)
 
 def backtracking(s1, s2):
     backtrackingHelper(s1-1, s2-1)
@@ -82,4 +90,5 @@ def printOutput(inputText):
     grid = generateGrid()
     backtracking(len(sequence1), len(sequence2))
     print(output1, output2, grid[-1][-1])
+    #for i in grid: print(i)
     output1 = output2 = ''
