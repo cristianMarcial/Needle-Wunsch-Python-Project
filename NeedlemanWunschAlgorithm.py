@@ -36,29 +36,48 @@ def generateGrid():
     
     return grid
 
+#Clone 1
 def backtrackHelper(x, y):
+    global output1, output2
     if x > 0 and y > 0:
-        diag = grid[y-1][x-1] + S(sequence1[x],sequence2[y]) #revision -1
+        diag = grid[y-1][x-1] + S(sequence1[x], sequence2[y]) #revision -1
         left = grid[y][x-1] + GAP_SCORE
         up = grid[y-1][x] + GAP_SCORE
 
         if diag > left and diag > up:
-            output1.insert(0, sequence1[x])
-            output2.insert(0, sequence2[y])
+            output1 = sequence1[x] + output1
+            output2 = sequence2[y] + output2
             backtrackHelper(x-1, y-1)
         else:
             if diag < left:
-                output1.insert(0, sequence1[x])
-                output2.insert(0, '-')
+                output1 = sequence1[x] + output1
+                output2 = '-' + output2
                 backtrackHelper(x-1, y)
-            else:
-                
+            elif diag == left:
+                if grid[y][x-1] >= grid[y][x]:
+                    output1 = sequence1[x] + output1
+                    output2 = '-' + output2
+                    backtrackHelper(x-1, y)
+                else:
+                    output1 = sequence1[x] + output1
+                    output2 = sequence2[y] + output2
+                    backtrackHelper(x-1, y-1)
+            elif diag < up:
+                output1 = '-' + output1
+                output2 = sequence2[y] + output2
+                backtrackHelper(x, y-1)
+            elif diag == up:
+                if grid[y-1][x] >= grid[y][x]:
+                    output1 = '-' + output1
+                    output2 = sequence2[y] + output2
+                    backtrackHelper(x, y-1)
+                else:
+                    output1 = sequence1[x] + output1
+                    output2 = sequence2[y] + output2
+                    backtrackHelper(x-1, y-1)
 
-                pass
-            pass
-
-def backtrack(se1, se2):
-    backtrackHelper(se1-1, se2-1)
+def backtrack(s1, s2):
+    backtrackHelper(s1-1, s2-1)
     pass
 
 def printGrid(g):
@@ -70,11 +89,9 @@ def printOutput(inputText):
     sequence1 = inputText[0]
     sequence2 = inputText[1]
     grid = generateGrid()
-    #score = grid[-1][-1]
 
-    #
+    backtrack(len(sequence1),len(sequence2))
+
     printGrid(grid)
     print('######')
-    #print(grid[-1][-1])
-
-    #print(s2)M
+    print(output1, output2, grid[-1][-1])
