@@ -44,7 +44,7 @@ def backtrackingHelper(x, y):
         left = grid[y][x-1] + GAP_SCORE
         up = grid[y-1][x] + GAP_SCORE
 
-        if diag >= left and diag >= up:
+        if diag > left and diag > up: #NO >=
             output1 = sequence1[x] + output1
             output2 = sequence2[y] + output2
             backtrackingHelper(x-1, y-1)
