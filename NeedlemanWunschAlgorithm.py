@@ -2,8 +2,7 @@ MATCH_SCORE = 1
 MISMATCH_SCORE = -1
 GAP_SCORE = -2
 
-output1 = ''
-output2 = ''
+output1 = output2 = ''
 
 def S(a, b):
     return MATCH_SCORE if a == b else MISMATCH_SCORE
