@@ -1,7 +1,7 @@
 import csv, sys
 import NeedlemanWunschAlgorithm as nwa
 
-# Example of an input: C:/Users/Admin/Desktop/excel_prueba1.csv
+# Example of an input: C:/Users/Admin/Desktop/excel_prueba2.csv
 input = input('Insert the file path: ')
 
 with open(input, 'r') as file:
