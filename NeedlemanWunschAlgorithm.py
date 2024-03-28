@@ -89,5 +89,4 @@ def printOutput(inputText):
     grid = generateGrid()
     backtracking(len(sequence1), len(sequence2))
     print(output1, output2, grid[-1][-1])
-    #for i in grid: print(i)
     output1 = output2 = ''
