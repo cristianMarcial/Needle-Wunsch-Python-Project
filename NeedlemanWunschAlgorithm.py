@@ -68,8 +68,6 @@ def backtracking(x, y):
         output1 = sequence1[x] + output1
         output2 = '-' + output2
         backtracking(x-1, y)
-    else:
-        pass
 
 def printOutput(inputText):
     global sequence1, sequence2, grid, output1, output2
