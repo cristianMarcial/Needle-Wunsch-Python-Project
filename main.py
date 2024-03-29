@@ -1,16 +1,18 @@
 import csv, sys
 import NeedlemanWunschAlgorithm as nwa
 
-# Example of an input: C:/Users/Admin/Desktop/excel_prueba2.csv
-input = input('Insert the file path: ')
+#Exampleof an input: py main.py test1.csv
 
-with open(input, 'r') as file:
-    # This makes sure that the lines are read as an csv file.
-    csvFile = csv.reader(file)
+if(len(sys.argv) > 1):
+    with open(sys.argv[1]) as file:
+        # This makes sure that the lines are read as an csv file.
+        csvFile = csv.reader(file)
 
-    # This omits the first row on the csv document
-    file.readline()
+        # This omits the first row on the csv document
+        file.readline()
 
-    for lines in csvFile:
-        nwa.printOutput(lines)
-file.close()
+        for lines in csvFile: 
+            nwa.printOutput(lines)
+    file.close()
+else:
+    print("Invalid input; this only works with a .csv file as an input on the command line")
